@@ -1,7 +1,7 @@
-// api/v1/scheduler_types.go
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1" // Import corev1 for EnvVar type
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -24,6 +24,10 @@ type Schedule struct {
 
 	// Params is the array of command line arguments to pass to the container image
 	Params []string `json:"params,omitempty"`
+
+	// Env is a list of environment variables to set in the container
+	// +optional
+	Env []corev1.EnvVar `json:"env,omitempty"` // Add this field
 }
 
 // SchedulerStatus defines the observed state of Scheduler

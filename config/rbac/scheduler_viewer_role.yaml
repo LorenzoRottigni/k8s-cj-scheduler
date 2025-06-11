@@ -1,7 +1,7 @@
 # This rule is not used by the project k8s-scheduler itself.
 # It is provided to allow the cluster admin to help manage permissions for users.
 #
-# Grants read-only access to deesup.com resources.
+# Grants read-only access to rottigni.tech resources.
 # This role is intended for users who need visibility into these resources
 # without permissions to modify them. It is ideal for monitoring purposes and limited-access viewing.
 
@@ -14,7 +14,7 @@ metadata:
   name: scheduler-viewer-role
 rules:
 - apiGroups:
-  - deesup.com
+  - rottigni.tech
   resources:
   - schedulers
   verbs:
@@ -22,7 +22,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - deesup.com
+  - rottigni.tech
   resources:
   - schedulers/status
   verbs:

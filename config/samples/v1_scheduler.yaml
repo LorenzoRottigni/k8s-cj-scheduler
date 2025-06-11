@@ -1,4 +1,4 @@
-apiVersion: deesup.com/v1
+apiVersion: rottigni.tech/v1
 kind: Scheduler
 metadata:
   labels:
