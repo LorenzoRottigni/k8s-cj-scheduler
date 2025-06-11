@@ -7,7 +7,7 @@ domain: deesup.com
 layout:
 - go.kubebuilder.io/v4
 projectName: k8s-scheduler
-repo: github.com/LorenzoRottigni/k8s-scheduler
+repo: github.com/lorenzorottigni/k8s-scheduler
 resources:
 - api:
     crdVersion: v1
@@ -15,6 +15,6 @@ resources:
   controller: true
   domain: deesup.com
   kind: Scheduler
-  path: github.com/LorenzoRottigni/k8s-scheduler/api/v1
+  path: github.com/lorenzorottigni/k8s-scheduler/api/v1
   version: v1
 version: "3"

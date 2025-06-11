@@ -1,5 +1,5 @@
 // controllers/scheduler_controller.go
-package controllers
+package controller
 
 import (
 	"context"
@@ -14,6 +14,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+
+	"k8s.io/apimachinery/pkg/runtime"
 
 	schedulingapiv1 "github.com/lorenzorottigni/k8s-scheduler/api/v1"
 )

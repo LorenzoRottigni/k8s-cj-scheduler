@@ -1,0 +1,28 @@
+apiVersion: deesup.com/v1 # This matches the API group (deesup.com) and version (v1) defined in your Scheduler CRD
+kind: Scheduler           # This matches the 'kind' defined in your Scheduler struct
+metadata:
+  name: my-first-scheduler # A unique name for this specific Scheduler instance
+  namespace: default      # The namespace where you want this Scheduler to operate
+spec:
+  schedules:
+    - name: daily-backup
+      image: busybox:latest
+      cronExpression: "0 0 * * *" # Every day at midnight (UTC)
+      params:
+        - echo
+        - "Running daily backup job..."
+
+    # - name: hourly-report
+    #   image: my-custom-reporter:1.0.0
+    #   cronExpression: "0 * * * *" # Every hour on the hour
+    #   params:
+    #     - /app/reporter
+    #     - "--env=prod"
+    #     - "--type=hourly"
+
+    - name: minutely-ping
+      image: alpine/curl
+      cronExpression: "*/1 * * * *" # Every minute
+      params:
+        - curl
+        - "https://www.google.com"
