@@ -6,8 +6,8 @@ cliVersion: 4.6.0
 domain: rottigni.tech
 layout:
 - go.kubebuilder.io/v4
-projectName: k8s-scheduler
-repo: github.com/lorenzorottigni/k8s-scheduler
+projectName: k8s-cj-scheduler
+repo: github.com/lorenzorottigni/k8s-cj-scheduler
 resources:
 - api:
     crdVersion: v1
@@ -15,6 +15,6 @@ resources:
   controller: true
   domain: rottigni.tech
   kind: Scheduler
-  path: github.com/lorenzorottigni/k8s-scheduler/api/v1
+  path: github.com/lorenzorottigni/k8s-cj-scheduler/api/v1
   version: v1
 version: "3"

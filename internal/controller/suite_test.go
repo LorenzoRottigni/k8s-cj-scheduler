@@ -32,7 +32,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	schedulingapiv1 "github.com/lorenzorottigni/k8s-scheduler/api/v1"
+	schedulingapiv1 "github.com/lorenzorottigni/k8s-cj-scheduler/api/v1"
 	// +kubebuilder:scaffold:imports
 )
 

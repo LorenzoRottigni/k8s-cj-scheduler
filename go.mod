@@ -1,4 +1,4 @@
-module github.com/lorenzorottigni/k8s-scheduler
+module github.com/lorenzorottigni/k8s-cj-scheduler
 
 go 1.24.0
 

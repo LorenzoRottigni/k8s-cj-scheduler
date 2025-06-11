@@ -27,20 +27,20 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/lorenzorottigni/k8s-scheduler/test/utils"
+	"github.com/lorenzorottigni/k8s-cj-scheduler/test/utils"
 )
 
 // namespace where the project is deployed in
-const namespace = "k8s-scheduler-system"
+const namespace = "k8s-cj-scheduler-system"
 
 // serviceAccountName created for the project
-const serviceAccountName = "k8s-scheduler-controller-manager"
+const serviceAccountName = "k8s-cj-scheduler-controller-manager"
 
 // metricsServiceName is the name of the metrics service of the project
-const metricsServiceName = "k8s-scheduler-controller-manager-metrics-service"
+const metricsServiceName = "k8s-cj-scheduler-controller-manager-metrics-service"
 
 // metricsRoleBindingName is the name of the RBAC that will be created to allow get the metrics data
-const metricsRoleBindingName = "k8s-scheduler-metrics-binding"
+const metricsRoleBindingName = "k8s-cj-scheduler-metrics-binding"
 
 var _ = Describe("Manager", Ordered, func() {
 	var controllerPodName string
@@ -173,7 +173,7 @@ var _ = Describe("Manager", Ordered, func() {
 		It("should ensure the metrics endpoint is serving metrics", func() {
 			By("creating a ClusterRoleBinding for the service account to allow access to metrics")
 			cmd := exec.Command("kubectl", "create", "clusterrolebinding", metricsRoleBindingName,
-				"--clusterrole=k8s-scheduler-metrics-reader",
+				"--clusterrole=k8s-cj-scheduler-metrics-reader",
 				fmt.Sprintf("--serviceaccount=%s:%s", namespace, serviceAccountName),
 			)
 			_, err := utils.Run(cmd)

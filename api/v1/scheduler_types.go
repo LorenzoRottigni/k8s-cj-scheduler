@@ -1,7 +1,7 @@
 package v1
 
 import (
-	corev1 "k8s.io/api/core/v1" // Import corev1 for EnvVar type
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -27,12 +27,34 @@ type Schedule struct {
 
 	// Env is a list of environment variables to set in the container
 	// +optional
-	Env []corev1.EnvVar `json:"env,omitempty"` // Add this field
+	Env []corev1.EnvVar `json:"env,omitempty"`
+
+	// +optional
+	EnvFrom []corev1.EnvFromSource `json:"envFrom,omitempty"`
 }
 
 // SchedulerStatus defines the observed state of Scheduler
 type SchedulerStatus struct {
-	// You can add status fields here if needed
+	// LastScheduleTime tracks the last time a job was successfully created for any schedule.
+	// +optional
+	LastScheduleTime *metav1.Time `json:"lastScheduleTime,omitempty"`
+
+	// Active holds the names of the currently running Jobs created by this Scheduler.
+	// +optional
+	Active []corev1.ObjectReference `json:"active,omitempty"`
+
+	// Conditions store the status of the Scheduler in a Kubernetes friendly way.
+	// This follows the standard Kubernetes API conventions.
+	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=type
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
+
+	// ObservedGeneration is the most recent generation observed for this Scheduler.
+	// It corresponds to the Scheduler's generation, which is updated on mutation
+	// by the API Server.
+	// +optional
+	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 }
 
 // +kubebuilder:object:root=true

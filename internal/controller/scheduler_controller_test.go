@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	schedulingapiv1 "github.com/lorenzorottigni/k8s-scheduler/api/v1"
+	schedulingapiv1 "github.com/lorenzorottigni/k8s-cj-scheduler/api/v1"
 )
 
 var _ = Describe("Scheduler Controller", func() {

@@ -4,8 +4,8 @@ import (
 	"flag"
 	"os"
 
-	schedulingapiv1 "github.com/lorenzorottigni/k8s-scheduler/api/v1"
-	"github.com/lorenzorottigni/k8s-scheduler/internal/controller"
+	schedulingapiv1 "github.com/lorenzorottigni/k8s-cj-scheduler/api/v1"
+	"github.com/lorenzorottigni/k8s-cj-scheduler/internal/controller"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
