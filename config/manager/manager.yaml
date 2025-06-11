@@ -61,7 +61,7 @@ spec:
       - command:
         - /manager
         args:
-          - --leader-elect
+          - --enable-leader-election
           - --health-probe-bind-address=:8081
         image: ghcr.io/lorenzorottigni/k8s-cj-scheduler:latest
         name: manager
