@@ -1,0 +1,9 @@
+apiVersion: scheduling.deesup.com/v1
+kind: Scheduler
+metadata:
+  labels:
+    app.kubernetes.io/name: k8s-scheduler
+    app.kubernetes.io/managed-by: kustomize
+  name: scheduler-sample
+spec:
+  # TODO(user): Add fields here

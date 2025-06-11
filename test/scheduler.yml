@@ -1,0 +1,8 @@
+apiVersion: scheduling.deesup.com/v1
+kind: Scheduler
+metadata:
+  name: example-scheduler
+  annotations:
+    scheduler.deesup.com/cron: "*/5 * * * *"
+    scheduler.deesup.com/operation: "backup"
+spec: {}

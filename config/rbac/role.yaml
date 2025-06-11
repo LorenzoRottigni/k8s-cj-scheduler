@@ -1,0 +1,32 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - scheduling.deesup.com
+  resources:
+  - schedulers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - scheduling.deesup.com
+  resources:
+  - schedulers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - scheduling.deesup.com
+  resources:
+  - schedulers/status
+  verbs:
+  - get
+  - patch
+  - update
