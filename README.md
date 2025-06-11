@@ -33,6 +33,17 @@ Before you begin, ensure you have the following installed:
 * **kubectl**: `v1.11.3+` (compatible with your cluster)
 * **Kubernetes Cluster**: Access to a `v1.11.3+` Kubernetes cluster.
 
+### Quick Installation
+
+To install the controller and its custom resources:
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/LorenzoRottigni/k8s-cj-scheduler/main/config/crd/bases/rottigni.tech_schedulers.yaml
+kubectl apply -k https://github.com/LorenzoRottigni/k8s-cj-scheduler/config/default
+```
+
+⚠️ Important: Ensure the controller image in the Kustomize setup points to a valid container registry (e.g., ghcr.io/lorenzorottigni/k8s-cj-scheduler:latest) that your cluster can pull from. If not, you must build and push your own image.
+
 ### Deploying to the Cluster
 
 1.  **Build and Push Your Operator Image**:
