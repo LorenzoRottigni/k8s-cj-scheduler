@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"net/http"
 	"os"
 
 	schedulingapiv1 "github.com/lorenzorottigni/k8s-cj-scheduler/api/v1"
@@ -37,15 +38,10 @@ func main() {
 	ctrl.SetLogger(zap.New(zap.UseDevMode(true)))
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:           scheme,
-		Metrics:          metricsserver.Options{BindAddress: metricsAddr}, // Updated metrics configuration
-		LeaderElection:   enableLeaderElection,
+		Scheme:         scheme,
+		Metrics:        metricsserver.Options{BindAddress: metricsAddr}, // Updated metrics configuration
+		LeaderElection: enableLeaderElection,
 		LeaderElectionID: "scheduler-controller.rottigni.tech",
-		// Port is also often moved into the metrics server options in newer versions
-		// If `Port` also causes an error, it might be moved to `Webhook` options or similar.
-		// For just metrics, you might not need `Port` directly in `ctrl.Options`.
-		// If you also have a webhook server, its port configuration might be separate.
-		// For now, let's assume `Port` is removed if it causes a new error.
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
@@ -59,6 +55,24 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Scheduler")
 		os.Exit(1)
 	}
+
+	// Start health and readiness HTTP server in background
+	go func() {
+		http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("ok"))
+		})
+		http.HandleFunc("/readyz", func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("ready"))
+		})
+
+		setupLog.Info("starting health server on :8081")
+		if err := http.ListenAndServe(":8081", nil); err != nil {
+			setupLog.Error(err, "health server failed")
+			os.Exit(1)
+		}
+	}()
 
 	setupLog.Info("starting manager")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
