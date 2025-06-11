@@ -29,7 +29,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	schedulerv1 "github.com/LorenzoRottigni/k8s-scheduler/api/v1"
+	schedulingv1 "github.com/LorenzoRottigni/k8s-scheduler/api/v1"
 )
 
 // SchedulerReconciler reconciles a Scheduler object
@@ -70,7 +70,7 @@ func (r *SchedulerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 func (r *SchedulerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	log := log.FromContext(ctx)
 
-	var scheduler schedulerv1.Scheduler
+	var scheduler schedulingv1.Scheduler
 	if err := r.Get(ctx, req.NamespacedName, &scheduler); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
