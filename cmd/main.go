@@ -40,7 +40,7 @@ func main() {
 		Scheme:           scheme,
 		Metrics:          metricsserver.Options{BindAddress: metricsAddr}, // Updated metrics configuration
 		LeaderElection:   enableLeaderElection,
-		LeaderElectionID: "scheduler-controller.your.domain",
+		LeaderElectionID: "scheduler-controller.rottigni.tech",
 		// Port is also often moved into the metrics server options in newer versions
 		// If `Port` also causes an error, it might be moved to `Webhook` options or similar.
 		// For just metrics, you might not need `Port` directly in `ctrl.Options`.
