@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	schedulingv1 "github.com/LorenzoRottigni/k8s-scheduler/api/v1"
+	schedulingapiv1 "github.com/LorenzoRottigni/k8s-scheduler/api/v1"
 )
 
 var _ = Describe("Scheduler Controller", func() {
@@ -40,13 +40,13 @@ var _ = Describe("Scheduler Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		scheduler := &schedulingv1.Scheduler{}
+		scheduler := &schedulingapiv1.Scheduler{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind Scheduler")
 			err := k8sClient.Get(ctx, typeNamespacedName, scheduler)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &schedulingv1.Scheduler{
+				resource := &schedulingapiv1.Scheduler{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -59,7 +59,7 @@ var _ = Describe("Scheduler Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &schedulingv1.Scheduler{}
+			resource := &schedulingapiv1.Scheduler{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 

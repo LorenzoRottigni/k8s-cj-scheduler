@@ -5,7 +5,19 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - scheduling.deesup.com
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - your.domain
   resources:
   - schedulers
   verbs:
@@ -17,13 +29,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - scheduling.deesup.com
-  resources:
-  - schedulers/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - scheduling.deesup.com
+  - your.domain
   resources:
   - schedulers/status
   verbs:

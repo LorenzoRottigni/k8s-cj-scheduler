@@ -32,7 +32,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	schedulingv1 "github.com/LorenzoRottigni/k8s-scheduler/api/v1"
+	schedulingapiv1 "github.com/LorenzoRottigni/k8s-scheduler/api/v1"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -59,7 +59,7 @@ var _ = BeforeSuite(func() {
 	ctx, cancel = context.WithCancel(context.TODO())
 
 	var err error
-	err = schedulingv1.AddToScheme(scheme.Scheme)
+	err = schedulingapiv1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	// +kubebuilder:scaffold:scheme

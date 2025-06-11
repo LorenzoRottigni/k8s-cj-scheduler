@@ -1,0 +1,78 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: schedulers.deesup.com
+spec:
+  group: deesup.com
+  names:
+    kind: Scheduler
+    listKind: SchedulerList
+    plural: schedulers
+    singular: scheduler
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: Scheduler is the Schema for the schedulers API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SchedulerSpec defines the desired state of Scheduler
+            properties:
+              schedules:
+                description: Schedules is the list of scheduled jobs to create
+                items:
+                  description: Schedule defines a single cron job specification
+                  properties:
+                    cronExpression:
+                      description: CronExpression is the cron expression string that
+                        defines when to run the job
+                      type: string
+                    image:
+                      description: Image is the container image to run in the cronjob
+                      type: string
+                    name:
+                      description: Name is a unique name for the schedule (used to
+                        identify the cronjob)
+                      type: string
+                    params:
+                      description: Params is the array of command line arguments to
+                        pass to the container image
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - cronExpression
+                  - image
+                  - name
+                  type: object
+                type: array
+            type: object
+          status:
+            description: SchedulerStatus defines the observed state of Scheduler
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

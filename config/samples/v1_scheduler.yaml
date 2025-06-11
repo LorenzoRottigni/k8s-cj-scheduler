@@ -1,4 +1,4 @@
-apiVersion: scheduling.deesup.com/v1
+apiVersion: deesup.com/v1
 kind: Scheduler
 metadata:
   labels:
