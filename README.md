@@ -248,8 +248,6 @@ You can leverage the optional Helm plugin to generate a Helm Chart for easier de
 
 ## Contributing
 
-We welcome contributions to the `k8s-cj-scheduler` project! To contribute:
-
 1.  **Fork** the repository.
 2.  **Clone** your forked repository: `git clone https://github.com/<your-username>/k8s-cj-scheduler.git`
 3.  Create a new **feature branch**: `git checkout -b feature/your-feature-name`
