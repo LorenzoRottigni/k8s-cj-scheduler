@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed:
 * **kubectl**: `v1.11.3+` (compatible with your cluster)
 * **Kubernetes Cluster**: Access to a `v1.11.3+` Kubernetes cluster.
 
-### Quick Installation
+### Standard Installation
 
 To install the controller and its custom resources:
 
@@ -45,6 +45,16 @@ kubectl apply -k https://github.com/LorenzoRottigni/k8s-cj-scheduler/config/defa
 ```
 
 ⚠️ Important: Ensure the controller image in the Kustomize setup points to a valid container registry (e.g., ghcr.io/lorenzorottigni/k8s-cj-scheduler:latest) that your cluster can pull from. If not, you must build and push your own image.
+
+### Helm Installation
+
+To install the controller and its custom resources:
+
+```sh
+helm repo add lr-labs https://lorenzorottigni.github.io/k8s-scheduler
+helm repo update
+helm install cj-scheduler lr-labs/k8s-cj-scheduler --namespace kube-system --create-namespace --skip-crds
+```
 
 ### Deploying to the Cluster
 
