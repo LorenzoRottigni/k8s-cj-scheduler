@@ -1,4 +1,4 @@
-apiVersion: rottigni.tech/v1
+apiVersion: lr.labs/v1
 kind: Scheduler
 metadata:
   labels:

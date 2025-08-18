@@ -3,7 +3,7 @@
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
 cliVersion: 4.6.0
-domain: rottigni.tech
+domain: lr.labs
 layout:
 - go.kubebuilder.io/v4
 projectName: k8s-cj-scheduler
@@ -13,7 +13,7 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: rottigni.tech
+  domain: lr.labs
   kind: Scheduler
   path: github.com/lorenzorottigni/k8s-cj-scheduler/api/v1
   version: v1

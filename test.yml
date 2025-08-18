@@ -1,4 +1,4 @@
-apiVersion: rottigni.tech/v1
+apiVersion: lr.labs/v1
 kind: Scheduler
 metadata:
   name: my-first-scheduler # A unique name for this specific Scheduler instance

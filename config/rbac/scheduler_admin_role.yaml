@@ -7,13 +7,13 @@ metadata:
   name: scheduler-admin-role
 rules:
 - apiGroups:
-  - rottigni.tech
+  - lr.labs
   resources:
   - schedulers
   verbs:
   - '*'
 - apiGroups:
-  - rottigni.tech
+  - lr.labs
   resources:
   - schedulers/status
   verbs:

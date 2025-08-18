@@ -1,12 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+    control-plane: controller-manager
+  name: k8s-cj-scheduler-system
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: schedulers.rottigni.tech
+  name: schedulers.lr.labs
 spec:
-  group: rottigni.tech
+  group: lr.labs
   names:
     kind: Scheduler
     listKind: SchedulerList
@@ -366,3 +374,333 @@ spec:
     storage: true
     subresources:
       status: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-controller-manager
+  namespace: k8s-cj-scheduler-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-leader-election-role
+  namespace: k8s-cj-scheduler-system
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8s-cj-scheduler-manager-role
+rules:
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - nodes
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8s-cj-scheduler-metrics-auth-role
+rules:
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8s-cj-scheduler-metrics-reader
+rules:
+- nonResourceURLs:
+  - /metrics
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-scheduler-admin-role
+rules:
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers
+  verbs:
+  - '*'
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers/status
+  verbs:
+  - get
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-scheduler-editor-role
+rules:
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-scheduler-viewer-role
+rules:
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - lr.labs
+  resources:
+  - schedulers/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-leader-election-rolebinding
+  namespace: k8s-cj-scheduler-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: k8s-cj-scheduler-leader-election-role
+subjects:
+- kind: ServiceAccount
+  name: k8s-cj-scheduler-controller-manager
+  namespace: k8s-cj-scheduler-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+  name: k8s-cj-scheduler-manager-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-cj-scheduler-manager-role
+subjects:
+- kind: ServiceAccount
+  name: k8s-cj-scheduler-controller-manager
+  namespace: k8s-cj-scheduler-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-cj-scheduler-metrics-auth-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-cj-scheduler-metrics-auth-role
+subjects:
+- kind: ServiceAccount
+  name: k8s-cj-scheduler-controller-manager
+  namespace: k8s-cj-scheduler-system
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+    control-plane: controller-manager
+  name: k8s-cj-scheduler-controller-manager-metrics-service
+  namespace: k8s-cj-scheduler-system
+spec:
+  ports:
+  - name: https
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app.kubernetes.io/name: k8s-cj-scheduler
+    control-plane: controller-manager
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: k8s-cj-scheduler
+    control-plane: controller-manager
+  name: k8s-cj-scheduler-controller-manager
+  namespace: k8s-cj-scheduler-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: k8s-cj-scheduler
+      control-plane: controller-manager
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: manager
+      labels:
+        app.kubernetes.io/name: k8s-cj-scheduler
+        control-plane: controller-manager
+    spec:
+      containers:
+      - args:
+        - --metrics-addr=:8443
+        - --enable-leader-election
+        command:
+        - /manager
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: manager
+        ports: []
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts: []
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: k8s-cj-scheduler-controller-manager
+      terminationGracePeriodSeconds: 10
+      volumes: []

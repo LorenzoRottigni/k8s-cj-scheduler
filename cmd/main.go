@@ -41,7 +41,7 @@ func main() {
 		Scheme:         scheme,
 		Metrics:        metricsserver.Options{BindAddress: metricsAddr}, // Updated metrics configuration
 		LeaderElection: enableLeaderElection,
-		LeaderElectionID: "scheduler-controller.rottigni.tech",
+		LeaderElectionID: "scheduler-controller.lr.labs",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")

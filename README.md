@@ -1,5 +1,7 @@
 # k8s-cj-scheduler
 
+<img src="https://s3.rottigni.tech/public/github/k8s-cj-scheduler-logo.webp" alt="RPGX Logo" width="400" />
+
 ## Overview
 
 The `k8s-cj-scheduler` project introduces a custom Kubernetes controller that simplifies the management of scheduled tasks within your cluster. Instead of directly interacting with Kubernetes `CronJob` resources, this operator allows you to define your schedules in a more declarative and streamlined way through a custom resource called `Scheduler`.
@@ -38,7 +40,7 @@ Before you begin, ensure you have the following installed:
 To install the controller and its custom resources:
 
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/LorenzoRottigni/k8s-cj-scheduler/main/config/crd/bases/rottigni.tech_schedulers.yaml
+kubectl apply -f https://raw.githubusercontent.com/LorenzoRottigni/k8s-cj-scheduler/main/config/crd/bases/lr.labs_schedulers.yaml
 kubectl apply -k https://github.com/LorenzoRottigni/k8s-cj-scheduler/config/default
 ```
 
@@ -82,7 +84,7 @@ kubectl apply -k config/samples/
 **Example `Scheduler` Resource (`config/samples/v1_scheduler.yaml` or `test.yml`):**
 
 ```yaml
-apiVersion: rottigni.tech/v1 # Your API Group
+apiVersion: lr.labs/v1 # Your API Group
 kind: Scheduler
 metadata:
   name: my-first-scheduler
@@ -128,7 +130,7 @@ Let's assume you've deployed the `k8s-cj-scheduler` operator to your cluster. He
     Create a file named `my-daily-report-scheduler.yaml` with the following content:
 
     ```yaml
-    apiVersion: rottigni.tech/v1
+    apiVersion: lr.labs/v1
     kind: Scheduler
     metadata:
       name: daily-report-generator
