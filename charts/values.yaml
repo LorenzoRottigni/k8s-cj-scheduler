@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/lorenzorottigni/k8s-cj-scheduler
-  tag: latest
+  tag: 0.2.0
   pullPolicy: IfNotPresent
 
 replicaCount: 1

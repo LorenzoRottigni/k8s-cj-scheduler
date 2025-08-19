@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   k8s-cj-scheduler:
   - apiVersion: v2
+    appVersion: 0.1.2
+    created: "2025-08-19T11:46:41.562672419+02:00"
+    description: A Kubernetes controller that schedules CronJobs from custom resources
+    digest: 51e89a9c8aff9aea618b761d246798dee977c140c3b9b472e013918ce3894b09
+    icon: https://s3.rottigni.tech/public/github/k8s-cj-scheduler-logo.webp
+    name: k8s-cj-scheduler
+    type: application
+    urls:
+    - https://lorenzorottigni.github.io/k8s-cj-scheduler/k8s-cj-scheduler-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: 0.1.1
-    created: "2025-08-19T09:30:21.862899471+02:00"
+    created: "2025-08-19T11:46:41.56249011+02:00"
     description: A Kubernetes controller that schedules CronJobs from custom resources
     digest: 219f2cc2ca2800a390c88be9875be12d3e7f4e5f3e18311e86f4f9313f0decdf
     icon: https://s3.rottigni.tech/public/github/k8s-cj-scheduler-logo.webp
@@ -14,7 +25,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2025-08-19T09:30:21.862601388+02:00"
+    created: "2025-08-19T11:46:41.562110108+02:00"
     description: A Kubernetes controller that schedules CronJobs from custom resources
     digest: bbf5bf40faf4eb49ddea1a6c775d9f2af2f6fc9d1850034804512b64afe9f6c4
     icon: https://s3.rottigni.tech/public/github/k8s-cj-scheduler-logo.webp
@@ -23,4 +34,4 @@ entries:
     urls:
     - https://lorenzorottigni.github.io/k8s-cj-scheduler/k8s-cj-scheduler-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-19T09:30:21.8621124+02:00"
+generated: "2025-08-19T11:46:41.561502842+02:00"
